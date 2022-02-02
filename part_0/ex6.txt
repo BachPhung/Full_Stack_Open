@@ -1,0 +1,7 @@
+Create a new note in pages https://studies.cs.helsinki.fi/exampleapp/spa
+
+browser->server: HTTP POST: https://studies.cs.helsinki.fi/exampleapp/new_note_spa
+server-->browser: status code 201
+
+Then the event handler creates a new notes, adds it to the notes list, rerenders
+the note list on the page displayed on the browser
