@@ -55,12 +55,12 @@ APIroute.post('/api/persons',(req,res)=>{
       return  res.status(403).json({err:'name must be unique'});
     }
     const newPerson = {
-        id: Math.random() * 1000000,
+        id: Math.round(Math.random() * 1000000),
         name: reqData.name,
         number: reqData.number
     }
     data = data.concat(newPerson)
-    res.status(200).json(data)
+    res.status(200).json(newPerson)
 })
 
 module.exports = APIroute
