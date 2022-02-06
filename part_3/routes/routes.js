@@ -7,7 +7,7 @@ let data = [
     },
     { 
       "id": 2,
-      "name": "Ada Lovelace", 
+      "name": "Ad Lovelace", 
       "number": "39-44-5323523"
     },
     { 
