@@ -52,7 +52,7 @@ APIroute.post('/api/persons',(req,res)=>{
     }
     const checkEsist = data.filter(d=>Object.values(d).includes(reqData.name))
     if(checkEsist.length > 0) {
-      return  res.status(403).json({err:'name must be unique'})
+      return  res.status(403).json({err:'name must be unique'});
     }
     const newPerson = {
         id: Math.random() * 1000000,
