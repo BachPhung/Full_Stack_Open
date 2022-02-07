@@ -28,23 +28,46 @@ APIroute.get('/api/persons', async (req, res) => {
   res.status(200).json(persons)
 })
 
-APIroute.get('/info', (req, res) => {
+APIroute.get('/info',async (req, res) => {
   const date = new Date()
+   const count = await Person.countDocuments()
   res.status(200).send(
-    `<div>Phone book has info for ${data.length} people</div>
+    `<div>Phone book has info for ${count} people</div>
          <div>${date}</div>
         `
   )
 })
-APIroute.get('/api/persons/:id', async (req, res) => {
+APIroute.get('/api/persons/:id', async (req, res,next) => {
   //res.status(200).json(data.filter(d=>d.id===Number(req.params.id)))
-  const person = await Person.findById(req.params.id)
-  res.status(200).json(person)
+  try{
+    const person = await Person.findById(req.params.id)
+    if(person){
+      res.status(200).json(person)
+    } else{
+      res.status(404).json('Not found')
+    }
+  }
+  catch(err){
+    //res.status(400).json({ error: 'malformatted id' })
+    next(err)
+  }
+})
+
+APIroute.put('/api/persons/:id', async (req,res, next) =>{
+  try{
+    const updatedPerson = {
+      ...req.body
+    }
+    await Person.findByIdAndUpdate(req.params.id,updatedPerson)
+  }
+  catch(err){
+    next(err)
+  }
 })
 
 APIroute.delete('/api/persons/:id', async (req, res) => {
   //data = data.filter(d=>d.id!==Number(req.params.id))
-  const deletedPerson = await Person.findByIdAndDelete(req.params.id)
+  const deletedPerson = await Person.findByIdAndRemove(req.params.id)
   res.status(200).json(deletedPerson)
 })
 

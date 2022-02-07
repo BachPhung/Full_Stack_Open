@@ -1,4 +1,10 @@
-DELETE http://localhost:3001/api/persons/3
+# DELETE http://localhost:3001/api/persons/3
+# Content-Type: application/json
+
+# GET http://localhost:3001/api/persons/620093e77967898ec6e526e5
+# Content-Type: application/json
+
+GET http://localhost:3001/api/
 Content-Type: application/json
 
 # POST http://localhost:3001/api/persons
