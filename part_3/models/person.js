@@ -1,9 +1,11 @@
 const mongoose = require('mongoose')
+const dotenv = require('dotenv')
+dotenv.config()
 const url = process.env.MONGODB_URI
 
 console.log('connecting to', url)
 
-mongoose.connect(`mongodb+srv://BachPhung:${password}@cluster0.c7sqy.mongodb.net/phonebook?retryWrites=true&w=majority`, {
+mongoose.connect(url, {
     useUnifiedTopology: true,
     useNewUrlParser: true
 }).then(() => { console.log("Connected to MongoDB") })
@@ -28,4 +30,4 @@ PersonSchema.set('toJSON',{
       }
 })
 
-module.exports = mongoose.model('Person',noteSchema)
+module.exports = mongoose.model('Person', PersonSchema)
