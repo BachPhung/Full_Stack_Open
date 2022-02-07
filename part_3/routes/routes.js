@@ -73,7 +73,7 @@ APIroute.delete('/api/persons/:id', async (req, res) => {
 
 
 
-APIroute.post('/api/persons', async (req, res) => {
+APIroute.post('/api/persons', async (req, res, next) => {
   const reqData = req.body
   if (reqData.name === undefined || reqData.number === undefined) {
     return res.status(400).json({ err: 'name or number is missing' })
@@ -87,8 +87,12 @@ APIroute.post('/api/persons', async (req, res) => {
     number: reqData.number
   })
   //data = data.concat(newPerson)
-  await newPerson.save()
-  res.status(200).json(newPerson)
+  try{
+    await newPerson.save()
+    res.status(200).json(newPerson)
+  }catch(err){
+    next(err)
+  }
 })
 
 module.exports = APIroute

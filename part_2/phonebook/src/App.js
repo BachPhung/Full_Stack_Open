@@ -50,18 +50,15 @@ const App = () => {
         name: newName,
         number: newNumber
       }
-      try {
         phoneService.create(newPerson).then((returnedPerson) => {
           setMessage(`added ${newPerson.name}`)
           setShowTime()
           setPersons(persons.concat(returnedPerson))
         })
-      }
-      catch (err) {
-        console.log(err)
-        setMessage(err)
+      .catch ((err)=>{
+        setMessage(err.response.data.error)
         setShowTime()
-      }
+      }) 
       setNewName('')
       setNewNumber('')
       document.querySelector('.input').focus()

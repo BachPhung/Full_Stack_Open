@@ -4,13 +4,13 @@
 # GET http://localhost:3001/api/persons/620093e77967898ec6e526e5
 # Content-Type: application/json
 
-GET http://localhost:3001/api/
-Content-Type: application/json
-
-# POST http://localhost:3001/api/persons
+# GET http://localhost:3001/api/person
 # Content-Type: application/json
 
-# {
-#     "name": "Bach Phung",
-#     "number": "123456789"
-# }
+POST http://localhost:3001/api/persons
+Content-Type: application/json
+
+{
+    "name": "AAA",
+    "number": "123456789"
+}
