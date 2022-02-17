@@ -10,8 +10,13 @@ blogRoute.post('/api/blogs', async (req, res) => {
     const savedBlog = new Blog({
         ...req.body
     })
-    await savedBlog.save()
-    res.status(201).json(savedBlog)
+    try{
+        await savedBlog.save()
+        res.status(201).json(savedBlog)
+    }
+    catch(err){
+        res.status(400).json(err)
+    }
 })
 
 module.exports = blogRoute
