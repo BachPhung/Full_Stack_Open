@@ -6,6 +6,8 @@ const middleware = require('./utils/middleware')
 const logger = require('./utils/logger')
 const mongoose = require('mongoose')
 const blogRoute = require('./controlers/blogs')
+
+//Connect to database
 logger.info('connecting to ', config.MONGODB_URI)
 mongoose.connect(config.MONGODB_URI, {
     useUnifiedTopology: true,
@@ -24,6 +26,7 @@ app.use(middleware.requestLogger)
 // API HERE
 app.use('/',blogRoute)
 
+//MIDDLEWARE
 app.use(middleware.unknownEndpoint)
 app.use(middleware.errorHandler)
 
