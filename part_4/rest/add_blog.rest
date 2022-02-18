@@ -1,0 +1,9 @@
+POST http://localhost:3005/api/blogs
+Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJvb3QiLCJpZCI6IjYyMGY0YTZlNWM5NmI0YjBiNTRiZTVhNCIsImlhdCI6MTY0NTE3OTQ5MH0.EgCI7vLAeUDMKB07s3rVs0WbHrWAtZFi629yhoNjUx4
+
+{
+    "title": "Title 8",
+    "author": "Author 1",
+    "url": "#"
+}
