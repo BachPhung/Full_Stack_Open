@@ -3,11 +3,16 @@ const Blog = require('../models/blog')
 const User = require('../models/user')
 const jwt = require('jsonwebtoken')
 const config = require('../utils/config')
-
+const blog = require('../models/blog')
 
 blogRoute.get('/api/blogs', async (req, res) => {
     const blogs = await Blog.find({}).populate('user', { username: 1, name: 1 })
     res.status(200).json(blogs)
+})
+
+blogRoute.get('/api/blogs/:id', async(req,res)=>{
+    const blog = await Blog.findById(req.params.id);
+    res.status(200).json(blog)
 })
 
 blogRoute.post('/api/blogs', async (req, res, next) => {

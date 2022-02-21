@@ -1,6 +1,9 @@
 h1,h2,h3{
     color: red;
 }
+*{
+    box-sizing: border-box;
+}
 .err{
     height: 30px;
     width: 100%;
