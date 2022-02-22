@@ -11,7 +11,7 @@ blogRoute.get('/api/blogs', async (req, res) => {
 })
 
 blogRoute.get('/api/blogs/:id', async(req,res)=>{
-    const blog = await Blog.findById(req.params.id);
+    const blog = await Blog.findById(req.params.id).populate('user', { username: 1, name: 1 });
     res.status(200).json(blog)
 })
 

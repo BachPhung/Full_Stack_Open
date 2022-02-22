@@ -17,8 +17,8 @@ const App = () => {
     setTimeout(() => setMessage('Notification'), 3000)
   }
   const handClickLikes = async (blog) => {
-    const updatedBlog = {...blog}
-    updatedBlog.likes ++;
+    const updatedBlog = { ...blog }
+    updatedBlog.likes ++
     updatedBlog.user = blog.user.id
     await blogService.update(blog.id,updatedBlog)
     const blogsRes = await blogService.getAll()
@@ -116,9 +116,9 @@ const App = () => {
         <Togglable buttonLabel='new create' ref={blogFormRef}>
           <BlogForm createBlog={addBlog} ref={blogFormRef} />
         </Togglable>
-        {blogs.map(blog =>
+        {blogs.map((blog,index) =>
           <>
-            <Blog key={blog.id} blog={blog} handClickLikes={handClickLikes} removeBlog={removeBlog} />
+            <Blog id={`blog${index}`} key={blog.id} blog={blog} handClickLikes={handClickLikes} removeBlog={removeBlog} />
           </>
         )}
       </div>
