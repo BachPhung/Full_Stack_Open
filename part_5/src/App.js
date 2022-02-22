@@ -13,12 +13,19 @@ const App = () => {
   const [user, setUser] = useState(null)
   const [message, setMessage] = useState('')
   const blogFormRef = useRef()
-  const [clickLikes, setClickLikes] = useState(false)
   const setShowTime = () => {
     setTimeout(() => setMessage('Notification'), 3000)
   }
-  const handClickLikes = () => {
-    setClickLikes(!clickLikes)
+  const handClickLikes = async (blog) => {
+    const updatedBlog = {...blog}
+    updatedBlog.likes ++;
+    updatedBlog.user = blog.user.id
+    await blogService.update(blog.id,updatedBlog)
+    const blogsRes = await blogService.getAll()
+    const sortedBlogs = blogsRes.sort((a, b) => {
+      return Number(b.likes) - Number(a.likes)
+    })
+    setBlogs(sortedBlogs)
   }
   const removeBlog = (removedBlog) => {
     setBlogs(blogs.filter(blog => JSON.stringify(blog) !== JSON.stringify(removedBlog)))
@@ -67,9 +74,9 @@ const App = () => {
       setBlogs(sortedBlogs)
     }
     fetchAll()
-  }, [clickLikes])
+  }, [])
 
-  useEffect(async () => {
+  useEffect(() => {
     const loggedUser = window.localStorage.getItem('user') || null
     if (loggedUser !== null) {
       console.log(JSON.parse(loggedUser))

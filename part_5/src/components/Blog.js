@@ -2,22 +2,7 @@ import { useState } from 'react'
 import blogService from '../services/blogs'
 const Blog = ({ blog, handClickLikes, removeBlog }) => {
   const [show, setShow] = useState(false)
-  const [likes, setLikes] = useState(blog.likes)
   const showWhenVisible = { display: !show ? 'none' : '' }
-  const updateLikes = async (id) => {
-    try {
-      const res = await blogService.update(id, {
-        ...blog,
-        user: blog.user.id,
-        likes: likes + 1
-      })
-      setLikes(res.likes + 1)
-      handClickLikes()
-    }
-    catch (err) {
-      console.log(err)
-    }
-  }
   const handleDelete = async (id, blog) => {
     const confirm = window.confirm(`remove blog ${blog.title}`)
     if (confirm) {
@@ -34,11 +19,11 @@ const Blog = ({ blog, handClickLikes, removeBlog }) => {
     <div style={blogStyle}>
       {blog.title} {blog.author}
       <button onClick={() => setShow(!show)} style={{ marginLeft: '20px' }}>{show ? 'hide' : 'show'}</button>
-      <div style={showWhenVisible}>
+      <div style={showWhenVisible} className='blogContent'>
         <div>{blog.url}</div>
-        <div>likes {likes}
-          <button onClick={() =>
-            updateLikes(blog.id)}>like</button>
+        <div>likes {blog.likes}
+          <button className='like-btn' onClick={() =>
+            handClickLikes(blog)}>like</button>
         </div>
         <div>{blog.user.name}</div>
         <div>
