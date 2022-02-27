@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice} from "@reduxjs/toolkit";
 const initialState = ''
 const notiSlice = createSlice({
     name:'notification',
@@ -12,6 +12,13 @@ const notiSlice = createSlice({
         }
     }
 })
+
+export const setMessage2 = (content,delay) =>{
+    return async dispatch =>{
+        dispatch(setMessage(content))
+        setTimeout(()=>dispatch(clearMessage()),delay*1000)
+    }
+}
 
 export const {setMessage, clearMessage} = notiSlice.actions
 export default notiSlice.reducer

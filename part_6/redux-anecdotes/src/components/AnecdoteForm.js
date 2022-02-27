@@ -1,21 +1,15 @@
-import { useDispatch} from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { useState } from 'react'
-import { addAnecdotes } from '../reducers/anecdoteReducer'
+import { addAnec } from '../reducers/anecdoteReducer'
 import { setMessage, clearMessage } from '../reducers/notiReducer'
-import anecdoteService from '../services/anecdotes'
 const AnecdoteForm = () => {
-  const [newAnec,setNewAnec] = useState('')
+  const [newAnec, setNewAnec] = useState('')
   const dispatch = useDispatch()
-  const createAnec = async (e) =>{
+  const createAnec = async (e) => {
     e.preventDefault()
-    const newAnecdote = {
-      content: newAnec,
-      votes: 0
-    }
-    const anecdoteRes = await anecdoteService.create(newAnecdote)
-    dispatch(addAnecdotes(anecdoteRes))
+    dispatch(addAnec(newAnec))
     dispatch(setMessage(`You added new anecdote: ${newAnec}`))
-    setTimeout(()=>dispatch(clearMessage()),5000)
+    setTimeout(() => dispatch(clearMessage()), 5000)
     setNewAnec('')
     document.querySelector('.input').focus()
   }

@@ -1,24 +1,19 @@
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { setMessage, clearMessage } from '../reducers/notiReducer'
-import { vote, setAnecdotes } from '../reducers/anecdoteReducer'
-import anecdotesService from '../services/anecdotes'
+import { setMessage2, clearMessage } from '../reducers/notiReducer'
+import { vote, initializeAnecdotes, addVotes } from '../reducers/anecdoteReducer'
+
 const AnecdoteList = () => {
     const dispatch = useDispatch()
     useEffect(()=>{
-        const fetchAnecdotes = async () =>{
-            const res = await anecdotesService.getAll()
-            dispatch(setAnecdotes(res))
-        }
-        fetchAnecdotes()
+        dispatch(initializeAnecdotes())
     },[dispatch])
     const anecdotes = useSelector(state => state.anecdotes)
     const filter = useSelector(state => state.filter)
     const filterAnecdotes = anecdotes.length>0 ? anecdotes.filter(anecdote=>(anecdote.content.toLowerCase()).includes(filter.toLowerCase())) : []
     const voteAnecdote = (anecdote) => {
-        dispatch(vote(anecdote.id))
-        dispatch(setMessage(`You voted: ${anecdote.content}`))
-        setTimeout(() => dispatch(clearMessage()), 5000)
+        dispatch(addVotes(anecdote))
+        dispatch(setMessage2(`You voted: ${anecdote.content}`,5))
     }
     return (
         anecdotes &&

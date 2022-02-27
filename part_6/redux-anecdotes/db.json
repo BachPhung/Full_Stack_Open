@@ -3,17 +3,27 @@
     {
       "id": 1,
       "content": "If it hurts, do it more often",
-      "votes": 0
+      "votes": 45
     },
     {
       "id": 2,
       "content": "Adding manpower to a late software project makes it later!",
-      "votes": 0
+      "votes": 33
     },
     {
       "content": "dQWdq",
-      "votes": 0,
+      "votes": 10,
       "id": 3
+    },
+    {
+      "content": "afwefaw",
+      "votes": 1,
+      "id": 4
+    },
+    {
+      "content": "aewfawe",
+      "votes": 0,
+      "id": 5
     }
   ]
 }

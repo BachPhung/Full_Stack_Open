@@ -7,7 +7,6 @@ const Notification = () => {
     borderWidth: 1
   }
   return (
-    message.length > 0 &&
     <div style={style}>
       {message}
     </div>
