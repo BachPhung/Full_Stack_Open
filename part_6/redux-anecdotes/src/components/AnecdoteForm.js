@@ -1,15 +1,15 @@
-import { useDispatch } from 'react-redux'
+import { connect } from 'react-redux'
 import { useState } from 'react'
 import { addAnec } from '../reducers/anecdoteReducer'
 import { setMessage, clearMessage } from '../reducers/notiReducer'
-const AnecdoteForm = () => {
+const AnecdoteForm = (props) => {
   const [newAnec, setNewAnec] = useState('')
-  const dispatch = useDispatch()
   const createAnec = async (e) => {
+    clearTimeout()
     e.preventDefault()
-    dispatch(addAnec(newAnec))
-    dispatch(setMessage(`You added new anecdote: ${newAnec}`))
-    setTimeout(() => dispatch(clearMessage()), 5000)
+    props.addAnec(newAnec)
+    props.setMessage(`You added new anecdote: ${newAnec}`)
+    setTimeout(() => props.clearMessage(), 5000)
     setNewAnec('')
     document.querySelector('.input').focus()
   }
@@ -24,4 +24,19 @@ const AnecdoteForm = () => {
   )
 }
 
-export default AnecdoteForm
+const mapStateToProps = (state) =>{
+  return {
+    state: state
+  }
+}
+const mapDispatchToProps = {
+  addAnec,
+  setMessage,
+  clearMessage
+}
+const ConnectedAnecdoteForm = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(AnecdoteForm)
+
+export default ConnectedAnecdoteForm
