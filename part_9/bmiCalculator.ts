@@ -1,15 +1,15 @@
-interface MultiplyValues {
-    height: number,
-    weight: number
-}
-const parseArguments = (args: Array<string>): MultiplyValues => {
-    if (args.length < 4) throw new Error('Not enough arguments');
-    if (args.length > 4) throw new Error('Too many arguments');
-    return {
-        height: Number(args[2]),
-        weight: Number(args[3])
-    }
-}
+// interface MultiplyValues {
+//     height: number,
+//     weight: number
+// }
+// const parseArguments = (args: Array<string>): MultiplyValues => {
+//     if (args.length < 4) throw new Error('Not enough arguments');
+//     if (args.length > 4) throw new Error('Too many arguments');
+//     return {
+//         height: Number(args[2]),
+//         weight: Number(args[3])
+//     }
+// }
 const calculateBmi = (height: number, weight: number) => {
     const Bmi = weight / (Math.pow(height, 2) / 10000);
     switch (true) {
@@ -43,15 +43,17 @@ const calculateBmi = (height: number, weight: number) => {
     }
 }
 
-try{
-    const {height,weight} = parseArguments(process.argv);
-    console.log(calculateBmi(height,weight));
+// try{
+//     const {height,weight} = parseArguments(process.argv);
+//     console.log(calculateBmi(height,weight));
     
-}
-catch(error:unknown){
-    let errorMessage = 'Something bad happened.';
-    if(error instanceof Error){
-        errorMessage += "Error: "+ error.message;
-    }
-    console.log(errorMessage);
-}
+// }
+// catch(error:unknown){
+//     let errorMessage = 'Something bad happened.';
+//     if(error instanceof Error){
+//         errorMessage += "Error: "+ error.message;
+//     }
+//     console.log(errorMessage);
+// }
+
+export default calculateBmi

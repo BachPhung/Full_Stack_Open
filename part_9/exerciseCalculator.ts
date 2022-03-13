@@ -1,19 +1,19 @@
-interface MultiplyValues2 {
-    period: Array<number>,
-    targetDaily: number,
-}
-const parseArguments2 = (args: Array<string>): MultiplyValues2 => {
-    if (args.length < 4) throw new Error('Not enough arguments');
-    let periodArray:Array<string> = args.slice(2, args.length-1);
-    let periodArrayToNumber: Array<number> = periodArray.map((item:string)=>Number(item));
-    console.log("length: ",args.length-2);
-    console.log('args',args);
-    return {
-        period: periodArrayToNumber,
-        targetDaily: Number(args[args.length -1])
-    }
-}
-interface Report {
+// interface MultiplyValues2 {
+//     period: Array<number>,
+//     targetDaily: number,
+// }
+// const parseArguments2 = (args: Array<string>): MultiplyValues2 => {
+//     if (args.length < 4) throw new Error('Not enough arguments');
+//     let periodArray:Array<string> = args.slice(2, args.length-1);
+//     let periodArrayToNumber: Array<number> = periodArray.map((item:string)=>Number(item));
+//     console.log("length: ",args.length-2);
+//     console.log('args',args);
+//     return {
+//         period: periodArrayToNumber,
+//         targetDaily: Number(args[args.length -1])
+//     }
+// }
+export interface Report {
     periodLength: number,
     trainingDays: number,
     success: true | false,
@@ -64,14 +64,16 @@ const calculateExercises = (arr:Array<number>, dailyTarget:number): Report => {
     };
 };
 
-try{
-    const {period, targetDaily} = parseArguments2(process.argv);
-    console.log(calculateExercises(period,targetDaily));
-}
-catch(error:unknown){
-    let errorMessage = 'Something bad happened.';
-    if(error instanceof Error){
-        errorMessage += "Error: "+ error.message;
-    }
-    console.log(errorMessage);
-}
+// try{
+//     const {period, targetDaily} = parseArguments2(process.argv);
+//     console.log(calculateExercises(period,targetDaily));
+// }
+// catch(error:unknown){
+//     let errorMessage = 'Something bad happened.';
+//     if(error instanceof Error){
+//         errorMessage += "Error: "+ error.message;
+//     }
+//     console.log(errorMessage);
+// }
+
+export default calculateExercises
