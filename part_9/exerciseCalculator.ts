@@ -1,3 +1,18 @@
+interface MultiplyValues2 {
+    period: Array<number>,
+    targetDaily: number,
+}
+const parseArguments2 = (args: Array<string>): MultiplyValues2 => {
+    if (args.length < 4) throw new Error('Not enough arguments');
+    let periodArray:Array<string> = args.slice(2, args.length-1);
+    let periodArrayToNumber: Array<number> = periodArray.map((item:string)=>Number(item));
+    console.log("length: ",args.length-2);
+    console.log('args',args);
+    return {
+        period: periodArrayToNumber,
+        targetDaily: Number(args[args.length -1])
+    }
+}
 interface Report {
     periodLength: number,
     trainingDays: number,
@@ -12,9 +27,10 @@ const calculateExercises = (arr:Array<number>, dailyTarget:number): Report => {
     let average:number = parseFloat((arr.reduce((preV,curV)=>preV+curV,0)/arr.length).toFixed(2));
     
     let periodLength:number = arr.length;
-    let trainingDays:number = arr.filter((item:number)=>{
-        item != 0;
-    }).length;
+    
+    let trainingDays:number = arr.filter(day=>day!=0).length;
+    console.log('trainingDays',trainingDays);
+    
     let success = average > dailyTarget;
     let rating:number;
     switch(true){
@@ -48,4 +64,14 @@ const calculateExercises = (arr:Array<number>, dailyTarget:number): Report => {
     };
 };
 
-console.log(calculateExercises([3, 0, 2, 4.5, 0, 3, 1],2));
+try{
+    const {period, targetDaily} = parseArguments2(process.argv);
+    console.log(calculateExercises(period,targetDaily));
+}
+catch(error:unknown){
+    let errorMessage = 'Something bad happened.';
+    if(error instanceof Error){
+        errorMessage += "Error: "+ error.message;
+    }
+    console.log(errorMessage);
+}
