@@ -1,0 +1,20 @@
+{
+  "name": "part_9",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "typescript": "^4.6.2",
+    "ts-node": "^10.7.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "ts-node": "ts-node",
+    "bmi": "ts-node -- bmiCalculator.ts",
+    "exer": "ts-node -- exerciseCalculator.ts" 
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
