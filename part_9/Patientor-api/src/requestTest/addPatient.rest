@@ -1,0 +1,10 @@
+POST http://localhost:3001/api/patients
+Content-Type: application/json
+
+{
+    "name": "John McClan",
+    "dateOfBirth": "1986-07-09",
+    "ssn": "090786-122X",
+    "gender": "male",
+    "occupation": "New york city cop"
+}
