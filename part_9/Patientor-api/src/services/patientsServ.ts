@@ -8,7 +8,7 @@ const getEntries = (): Array<PatientEntry> => {
 }
 
 const getNonSSNEntries = (): Array<NonSSNEntries> => {
-    return patients.map(({ id, name, dateOfBirth, gender, occupation }) => ({
+    return patients.map(({ id, name, dateOfBirth, gender, occupation}) => ({
         id,
         name,
         dateOfBirth,
