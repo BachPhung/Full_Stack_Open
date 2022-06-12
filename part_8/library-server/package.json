@@ -13,6 +13,8 @@
   "license": "ISC",
   "dependencies": {
     "apollo-server": "^3.8.2",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.3.6",
     "nodemon": "^2.0.16",
     "uuid": "^8.3.2"
   }
