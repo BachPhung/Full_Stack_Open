@@ -1,5 +1,6 @@
 import { State } from "./state";
 import { Patient } from "../types";
+import axios from "axios";
 
 export type Action =
   | {
@@ -9,7 +10,22 @@ export type Action =
   | {
       type: "ADD_PATIENT";
       payload: Patient;
+    }
+  | {
+      type: "GET_PATIENT";
+    }
+  | {
+      type: "UPDATE_PATIENT";
+      payload: Patient;
     };
+
+export const setPatientListFromUrl = async (url: string) => {
+  const { data: patientList } = await axios.get<Patient[]>(url);
+  return {
+    payload: patientList,
+    type: "SET_PATIENT_LIST",
+  } as Action;
+};
 
 export const reducer = (state: State, action: Action): State => {
   switch (action.type) {
@@ -21,17 +37,31 @@ export const reducer = (state: State, action: Action): State => {
             (memo, patient) => ({ ...memo, [patient.id]: patient }),
             {}
           ),
-          ...state.patients
-        }
+          ...state.patients,
+        },
       };
     case "ADD_PATIENT":
       return {
         ...state,
         patients: {
           ...state.patients,
-          [action.payload.id]: action.payload
-        }
+          [action.payload.id]: action.payload,
+        },
       };
+    case "GET_PATIENT": {
+      return {
+        ...state,
+      };
+    }
+    case "UPDATE_PATIENT": {
+      return {
+        ...state,
+        patients: {
+          ...state.patients,
+          [action.payload.id]: action.payload,
+        },
+      };
+    }
     default:
       return state;
   }
