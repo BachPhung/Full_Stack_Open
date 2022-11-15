@@ -1,5 +1,5 @@
 import { State } from "./state";
-import { Patient } from "../types";
+import { Diagnosis, Patient } from "../types";
 import axios from "axios";
 
 export type Action =
@@ -12,11 +12,15 @@ export type Action =
       payload: Patient;
     }
   | {
-      type: "GET_PATIENT";
+      type: "GET_STATES";
     }
   | {
       type: "UPDATE_PATIENT";
       payload: Patient;
+    }
+  | {
+      type: "SET_DIAGNOSE_LIST";
+      payload: Diagnosis[];
     };
 
 export const setPatientListFromUrl = async (url: string) => {
@@ -24,6 +28,14 @@ export const setPatientListFromUrl = async (url: string) => {
   return {
     payload: patientList,
     type: "SET_PATIENT_LIST",
+  } as Action;
+};
+
+export const setDiagnoseListFromUrl = async (url: string) => {
+  const { data: diagnosisList } = await axios.get<Diagnosis[]>(url);
+  return {
+    payload: diagnosisList,
+    type: "SET_DIAGNOSE_LIST",
   } as Action;
 };
 
@@ -48,7 +60,7 @@ export const reducer = (state: State, action: Action): State => {
           [action.payload.id]: action.payload,
         },
       };
-    case "GET_PATIENT": {
+    case "GET_STATES": {
       return {
         ...state,
       };
@@ -60,6 +72,12 @@ export const reducer = (state: State, action: Action): State => {
           ...state.patients,
           [action.payload.id]: action.payload,
         },
+      };
+    }
+    case "SET_DIAGNOSE_LIST": {
+      return {
+        ...state,
+        diagnosis: [...action.payload],
       };
     }
     default:
