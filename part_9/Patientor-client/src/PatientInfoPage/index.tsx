@@ -1,13 +1,26 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useStateValue } from "../state";
-import { Diagnosis, Patient } from "../types";
+import { Diagnosis, HealthCheckEntry, Patient } from "../types";
 import axios from "axios";
 import { apiBaseUrl } from "../constants";
+import AddHealthCheckModal from "../components/AddEntryModal";
+import { Button } from "@material-ui/core";
 const PatientInfoPage = () => {
   const { id } = useParams<{ id: string }>();
   const [{ patients, diagnosis }, dispatch] = useStateValue();
   const [patientDetail, setPersonDetail] = useState<Patient | null>(null);
+  const [modalOpen, setModalOpen] = useState<boolean>(false);
+  const [error, setError] = useState<string>();
+  const closeModal = (): void => {
+    setModalOpen(false);
+    setError(undefined);
+  };
+
+  const openModal = (): void => setModalOpen(true);
+  const submitNewEntry = (values: Omit<HealthCheckEntry, "id" | "type">) => {
+    console.log(values);
+  };
   if (id) {
     useEffect(() => {
       dispatch({ type: "GET_STATES" });
@@ -49,7 +62,7 @@ const PatientInfoPage = () => {
     diagnosis.length > 0
   ) {
     return (
-      <div>
+      <div className="App">
         <h1>
           {patientDetail?.name} {patientDetail?.gender}
         </h1>
@@ -73,6 +86,15 @@ const PatientInfoPage = () => {
             </ul>
           </div>
         )}
+        <AddHealthCheckModal
+          modalOpen={modalOpen}
+          onClose={closeModal}
+          error={error}
+          onSubmit={submitNewEntry}
+        />
+        <Button variant="contained" onClick={() => openModal()}>
+          Add New Entry
+        </Button>
       </div>
     );
   } else {
