@@ -1,6 +1,5 @@
 const { ApolloServer } = require("@apollo/server");
 const { startStandaloneServer } = require("@apollo/server/standalone");
-const { v1: uuid } = require("uuid");
 const mongoose = require("mongoose");
 const config = require("./config");
 const Book = require("./models/Book");
@@ -109,7 +108,7 @@ Author.insertMany(authors);
 const typeDefs = `
   type User {
     username: String!
-    favoriteGenre: String!
+    favoriteGenres: [String]!
     id: ID!
   }
 
@@ -128,12 +127,6 @@ const typeDefs = `
     name: String!
     bookCount: Int!
     born: Int
-  }
-
-  type User {
-    username: String!
-    favoriteGenre: String!
-    id: ID!
   }
 
   type Token {
@@ -253,9 +246,10 @@ const resolvers = {
       return null;
     },
     createUser: async (_root, args) => {
-      const user = new User({ username: args.username, friends: [] });
+      const user = new User({ username: args.username, favoriteGenres: [] });
 
       return user.save().catch((error) => {
+        console.log("error: ", error);
         throw new GraphQLError("Creating the user failed", {
           extensions: {
             code: "BAD_USER_INPUT",
@@ -300,9 +294,7 @@ startStandaloneServer(server, {
     const auth = req ? req.headers.authorization : null;
     if (auth && auth.startsWith("Bearer ")) {
       const decodedToken = jwt.verify(auth.substring(7), config.JWT_SECRET);
-      const currentUser = await User.findById(decodedToken.id).populate(
-        "friends"
-      );
+      const currentUser = await User.findById(decodedToken.id);
       return { currentUser };
     }
   },
